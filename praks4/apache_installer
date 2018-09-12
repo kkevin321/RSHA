@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+#skript apache paigalduseks
+
+#kontroll
+APACHE2=$(dpkg-query -W -f='$(status)' apache2 2>/dev/null | grep -c "ok installed")
+#antud käsu tulemusena on kas 0 või 1
+#kui ridade arv on 0 - pole paigaldatud ja tuleb paigaldada
+if [ $APACHE2 -eq 0 ]; then
+	echo "paigaldame apache2"
+	apt-get install -y apache2;
+#kui ridade arv on 1, siis teenus on paigaldatud
+elif [ $APACHE2 -eq 1 ]; then
+echo "apache2 on paigaldatud!"
+service apache2 status
+fi
